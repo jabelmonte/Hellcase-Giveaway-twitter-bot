@@ -1,7 +1,5 @@
-getKeys = open('../keys/keys.txt', 'r')
-display_keys = getKeys.read()
+import tweepy
+from Keys import Keys
 
-for line in display_keys:
-    print(line, end='')
-
-getKeys.close()
+key = Keys()
+key.getKeys()
