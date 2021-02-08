@@ -6,7 +6,13 @@ class Keys():
         filepath = "../keys/keys.txt"
         #reader
         with open(filepath, 'r') as file:
-            pullKeys = file.read().replace('\n ', '')
-            storedKeys = pullKeys
+            pullKeys = file.read().splitlines()
+            allKeys = {
+                "a": pullKeys[0],
+                "b": pullKeys[1],
+                "c": pullKeys[2],
+                "d": pullKeys[3]
+            }
+           
         file.close()
-        return storedKeys
+        return allKeys
