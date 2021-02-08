@@ -17,21 +17,43 @@ auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
 auth.set_access_token(access_token, access_token_secret)
 api = tweepy.API(auth)
 
+hashtag = "#kingkongwillwin"
+tweetCount = 5
+
+followerCount = 10
+
 def scantweet():
-
     #auto follow every follower first
-    for follower in tweepy.Cursor(api.followers).items():
-    follower.follow()
+    for follower in tweepy.Cursor(api.followers).items(followerCount):
+        follower.follow()
 
-    tweets = api.mentions_timeline(logs.readLog(filepath), tweet_mode='extended')
-    for tweet in reversed(tweets):
-        if '#letsgonow09'in tweet.full_text.lower():
-            print(str(tweet.id) + ' - ' + tweet.full_text)
-            api.update_status("@" + tweet.user.screen_name + "@ADSFGHJOLO" + " " + "@gibblehayo" + " " + "@greenmalware", tweet.id)
-            api.create_favorite(tweet.id)
+    tweets = tweepy.Cursor(api.search, hashtag).items(tweetCount)
+
+    for tweet in tweets:
+        try:
             api.retweet(tweet.id)
-            logs.storeLog(filepath, tweet.id)
+            print('retweet success!')
+            api.create_favorite(tweet.id)
+            print('favorite success!')
+            api.update_status("@" + tweet.user.screen_name + "pls win " + " ", tweet.id)
+            print('comment success!')
+            print(str(tweet.id) + ' - ' + tweet.full_text)
+            time.sleep(5)
+        except tweepy.TweepError as e:
+            print(e.reason)
+            time.sleep(5)
+
+    # tweets = api.mentions_timeline(logs.readLog(filepath), tweet_mode='extended')
+    # tweets = api.search('#kingkongwillwin', logs.readLog(filepath), tweet_mode='extended')
+    # for tweet in reversed(tweets):
+    #     if '#kingkongwillwin'in tweet.full_text.lower():
+    #         print(str(tweet.id) + ' - ' + tweet.full_text)
+    #         api.update_status("@" + tweet.user.screen_name + " Hello human! ", tweet.id)
+    #         api.create_favorite(tweet.id)
+    #         api.retweet(tweet.id)
+    #         logs.storeLog(filepath, tweet.id)
 
 while True:
     scantweet()
-    time.sleep(20)
+# while True:
+#     scantweet()
