@@ -7,6 +7,6 @@ class Keys():
         #reader
         with open(filepath, 'r') as file:
             pullKeys = file.read().replace('\n ', '')
-
+            storedKeys = pullKeys
         file.close()
-        print(pullKeys)
+        return storedKeys
