@@ -18,11 +18,16 @@ auth.set_access_token(access_token, access_token_secret)
 api = tweepy.API(auth)
 
 def scantweet():
+
+    #auto follow every follower first
+    for follower in tweepy.Cursor(api.followers).items():
+    follower.follow()
+
     tweets = api.mentions_timeline(logs.readLog(filepath), tweet_mode='extended')
     for tweet in reversed(tweets):
         if '#letsgonow09'in tweet.full_text.lower():
             print(str(tweet.id) + ' - ' + tweet.full_text)
-            api.update_status("@" + tweet.user.screen_name + " Hmm okay ", tweet.id)
+            api.update_status("@" + tweet.user.screen_name + "@ADSFGHJOLO" + " " + "@gibblehayo" + " " + "@greenmalware", tweet.id)
             api.create_favorite(tweet.id)
             api.retweet(tweet.id)
             logs.storeLog(filepath, tweet.id)
