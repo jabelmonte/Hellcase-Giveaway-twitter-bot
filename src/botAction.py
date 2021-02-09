@@ -17,31 +17,34 @@ auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
 auth.set_access_token(access_token, access_token_secret)
 api = tweepy.API(auth)
 
-hashtag = "#kingkongwillwin"
+# hashtag1 = "#kingkongwillwin"
+# hashtag2 = "#kingkongflip"
 tweetCount = 5
 
 followerCount = 10
 
 def scantweet():
     #auto follow every follower first
-    for follower in tweepy.Cursor(api.followers).items(followerCount):
-        follower.follow()
+    # for follower in tweepy.Cursor(api.followers).items(followerCount):
+    #     follower.follow()
 
-    tweets = tweepy.Cursor(api.search, hashtag).items(tweetCount)
+    tweets = tweepy.Cursor(api.search, q='#hellcase AND #csgo').items(tweetCount)
 
     for tweet in tweets:
         try:
+            time.sleep(10)
             api.retweet(tweet.id)
             print('retweet success!')
+            time.sleep(9)
             api.create_favorite(tweet.id)
             print('favorite success!')
-            api.update_status("@" + tweet.user.screen_name + "pls win " + " ", tweet.id)
+            time.sleep(14)
+            api.update_status("@" + tweet.user.screen_name + " pls win " + "@gibblhayo ", tweet.id)
             print('comment success!')
-            print(str(tweet.id) + ' - ' + tweet.full_text)
             time.sleep(5)
         except tweepy.TweepError as e:
             print(e.reason)
-            time.sleep(5)
+            time.sleep(30)
 
     # tweets = api.mentions_timeline(logs.readLog(filepath), tweet_mode='extended')
     # tweets = api.search('#kingkongwillwin', logs.readLog(filepath), tweet_mode='extended')
