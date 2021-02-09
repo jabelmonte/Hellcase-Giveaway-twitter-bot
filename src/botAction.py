@@ -20,8 +20,8 @@ api = tweepy.API(auth)
 # hashtag1 = "#kingkongwillwin"
 # hashtag2 = "#kingkongflip"
 tweetCount = 5
-
 followerCount = 10
+mentioned = "@gibblhayo "
 
 def scantweet():
     #auto follow every follower first
@@ -39,7 +39,7 @@ def scantweet():
             api.create_favorite(tweet.id)
             print('favorite success!')
             time.sleep(14)
-            api.update_status("@" + tweet.user.screen_name + " pls win " + "@gibblhayo ", tweet.id)
+            api.update_status("@" + tweet.user.screen_name + " pls win " + mentioned, tweet.id)
             print('comment success!')
             time.sleep(5)
         except tweepy.TweepError as e:
