@@ -1,9 +1,11 @@
 import tweepy
 import time
+import random
 from log import Log
 from Keys import Keys
 
 filepath = "../logs/seentweetslog.txt"
+commentspath = "../logs/comments.txt"
 key = Keys()
 pullKeys = key.getKeys()
 logs = Log()
@@ -12,6 +14,7 @@ consumer_key = pullKeys['a']
 consumer_secret = pullKeys['b']
 access_token = pullKeys['c']
 access_token_secret = pullKeys['d']
+
 
 auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
 auth.set_access_token(access_token, access_token_secret)
@@ -22,6 +25,11 @@ api = tweepy.API(auth)
 tweetCount = 5
 followerCount = 10
 mentioned = "@gibblhayo "
+
+def testRandom():
+    commentpick = open(commentspath).read().splitlines()
+    randComment = random.choice(commentpick)
+    print(randComment)
 
 def scantweet():
     #auto follow every follower first
@@ -56,7 +64,7 @@ def scantweet():
     #         api.retweet(tweet.id)
     #         logs.storeLog(filepath, tweet.id)
 
-while True:
-    scantweet()
+
+testRandom()
 # while True:
 #     scantweet()
