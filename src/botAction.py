@@ -14,6 +14,7 @@ consumer_key = pullKeys['a']
 consumer_secret = pullKeys['b']
 access_token = pullKeys['c']
 access_token_secret = pullKeys['d']
+mentioned = pullKeys['e']
 
 
 auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
@@ -24,7 +25,6 @@ api = tweepy.API(auth)
 # hashtag2 = "#kingkongflip"
 tweetCount = 5
 followerCount = 10
-mentioned = "@gibblhayo "
 
 def testRandom():
     commentpick = open(commentspath).read().splitlines()

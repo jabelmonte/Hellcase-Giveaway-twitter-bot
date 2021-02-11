@@ -11,7 +11,8 @@ class Keys():
                 "a": pullKeys[0],
                 "b": pullKeys[1],
                 "c": pullKeys[2],
-                "d": pullKeys[3]
+                "d": pullKeys[3],
+                "e": pullKeys[4]
             }
            
         file.close()
