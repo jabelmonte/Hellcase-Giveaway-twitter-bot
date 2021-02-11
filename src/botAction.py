@@ -26,11 +26,6 @@ api = tweepy.API(auth)
 tweetCount = 5
 followerCount = 10
 
-def testRandom():
-    commentpick = open(commentspath).read().splitlines()
-    randComment = random.choice(commentpick)
-    print(randComment)
-
 def scantweet():
     #auto follow every follower first
     # for follower in tweepy.Cursor(api.followers).items(followerCount):
@@ -40,6 +35,8 @@ def scantweet():
 
     for tweet in tweets:
         try:
+            commentpick = open(commentspath).read().splitlines()
+            randComment = random.choice(commentpick)
             time.sleep(10)
             api.retweet(tweet.id)
             print('retweet success!')
@@ -47,7 +44,7 @@ def scantweet():
             api.create_favorite(tweet.id)
             print('favorite success!')
             time.sleep(14)
-            api.update_status("@" + tweet.user.screen_name + " pls win " + mentioned, tweet.id)
+            api.update_status("@" + tweet.user.screen_name + randComment + mentioned, tweet.id)
             print('comment success!')
             time.sleep(5)
         except tweepy.TweepError as e:
@@ -65,6 +62,5 @@ def scantweet():
     #         logs.storeLog(filepath, tweet.id)
 
 
-testRandom()
-# while True:
-#     scantweet()
+while True:
+    scantweet()
